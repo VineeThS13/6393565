@@ -1,46 +1,46 @@
 ﻿using System;
-
-public class Logger
+namespace VSCodeCSharpExample
 {
-    private static Logger _instance;
-    private static readonly object _lock = new object();
-
-    private Logger()
+    class Program
     {
-        Console.WriteLine("Logger initialized.");
-    }
-
-    public static Logger GetInstance()
-    {
-        if (_instance == null)
+        static void Main(string[] args)
         {
-            lock (_lock)
+            Console.WriteLine("Welcome to C# in VS Code!");
+            Console.WriteLine("-------------------------");
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+            GreetUser(name);
+            PerformCalculations();
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+        static void GreetUser(string name)
+        {
+            Console.WriteLine($"\nHello, {name}! Current date/time: {DateTime.Now}");
+        }
+        static void PerformCalculations()
+        {
+            Console.WriteLine("\nLet's do some calculations!");
+            
+            Console.Write("Enter first number: ");
+            double num1 = Convert.ToDouble(Console.ReadLine());
+            
+            Console.Write("Enter second number: ");
+            double num2 = Convert.ToDouble(Console.ReadLine());
+            
+            Console.WriteLine($"\nResults:");
+            Console.WriteLine($"{num1} + {num2} = {num1 + num2}");
+            Console.WriteLine($"{num1} - {num2} = {num1 - num2}");
+            Console.WriteLine($"{num1} * {num2} = {num1 * num2}");
+            
+            if (num2 != 0)
             {
-                if (_instance == null)
-                {
-                    _instance = new Logger();
-                }
+                Console.WriteLine($"{num1} / {num2} = {num1 / num2}");
+            }
+            else
+            {
+                Console.WriteLine("Cannot divide by zero!");
             }
         }
-        return _instance;
-    }
-
-    public void Log(string message)
-    {
-        Console.WriteLine("Log: " + message);
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Logger logger1 = Logger.GetInstance();
-        logger1.Log("This is the first message.");
-
-        Logger logger2 = Logger.GetInstance();
-        logger2.Log("This is the second message.");
-
-        Console.WriteLine($"Are both instances same? {ReferenceEquals(logger1, logger2)}");
     }
 }
